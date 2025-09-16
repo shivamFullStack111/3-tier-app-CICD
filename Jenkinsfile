@@ -2,8 +2,9 @@ pipeline {
     agent any
 
     tools {
-        sonarQubeScanner 'Sonar-scanner'   // 👈 yahan wahi naam do jo tumne Tools me diya tha sonar scanner install krte time
-    }
+         // 👇 Ye type correct hai (SonarQube Scanner)
+        hudson.plugins.sonar.SonarRunnerInstallation('Sonar-scanner') 
+        // Yahan "Sonar-scanner" wahi naam hai jo tumne Tools me diya tha    }
 
     environment {
         SONAR_TOKEN = credentials('Sonar') // Jenkins me saved Sonar token
