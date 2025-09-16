@@ -2,10 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello-----') {
+        stage('Code pulling') {
             steps {
-                echo 'Hello World'
+                git branch: "main", url: 'https://github.com/shivamFullStack111/3-tier-app-CICD'
+                echo 'Code clone successfull '
+                sh 'ls'    
             }
         }
+        
     }
 }
