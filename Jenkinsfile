@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        sonarQubeScanner 'SonarScanner'   // 👈 yahan wahi naam do jo tumne Tools me diya tha sonar scanner install krte time
+        sonarQubeScanner 'Sonar-scanner'   // 👈 yahan wahi naam do jo tumne Tools me diya tha sonar scanner install krte time
     }
 
     environment {
