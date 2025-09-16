@@ -25,7 +25,7 @@ pipeline {
                 // Jenkins me configured SonarQube server ka environment use kar rahe hain
                 withSonarQubeEnv('Sonar') {
                     sh """
-                    sonar-scanner \
+                    Sonar-scanner \
                     -Dsonar.projectKey=3-tier-app \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=$SONAR_HOST_URL \
