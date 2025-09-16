@@ -7,7 +7,7 @@ pipeline {
     }
 
     tools {
-        sonarScanner 'Sonar-scanner'   // 👈 yahan wahi naam likho jo Tools me configure kiya tha
+        SonarQubeScanner 'Sonar-scanner'   // 👈 yahan wahi naam likho jo Tools me configure kiya tha
     }
 
     stages {
