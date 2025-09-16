@@ -4,7 +4,8 @@ pipeline {
     tools {
          // 👇 Ye type correct hai (SonarQube Scanner)
         hudson.plugins.sonar.SonarRunnerInstallation('Sonar-scanner') 
-        // Yahan "Sonar-scanner" wahi naam hai jo tumne Tools me diya tha    }
+        // Yahan "Sonar-scanner" wahi naam hai jo tumne Tools me diya tha  
+    }
 
     environment {
         SONAR_TOKEN = credentials('Sonar') // Jenkins me saved Sonar token
