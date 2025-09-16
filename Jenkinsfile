@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONAR_TOKEN = credentials('Sonar') // Jenkins me saved Sonar token
-        SONAR_HOST_URL = 'http://http://172.16.210.130/:9000' // SonarQube server URL
+        SONAR_HOST_URL = 'http://172.16.210.130/:9000' // SonarQube server URL
     }
 
     stages {
