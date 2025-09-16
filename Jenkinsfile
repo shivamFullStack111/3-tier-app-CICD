@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        sonarQubeScanner 'SonarScanner'   // 👈 yahan wahi naam do jo tumne Tools me diya tha sonar scanner install krte time
+    }
+
     environment {
         SONAR_TOKEN = credentials('Sonar') // Jenkins me saved Sonar token
         SONAR_HOST_URL = 'http://172.16.210.130/:9000' // SonarQube server URL
@@ -25,7 +29,7 @@ pipeline {
                 // Jenkins me configured SonarQube server ka environment use kar rahe hain
                 withSonarQubeEnv('Sonar') {
                     sh """
-                    Sonar-scanner \
+                    sonar-scanner \
                     -Dsonar.projectKey=3-tier-app \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=$SONAR_HOST_URL \
