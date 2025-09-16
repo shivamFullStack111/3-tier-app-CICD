@@ -1,37 +1,29 @@
 pipeline {
     agent any
 
-    tools {
-         // 👇 Ye type correct hai (SonarQube Scanner)
-        hudson.plugins.sonar.SonarRunnerInstallation('Sonar-scanner') 
-        // Yahan "Sonar-scanner" wahi naam hai jo tumne Tools me diya tha  
+    environment {
+        SONAR_TOKEN = credentials('Sonar')  // Jenkins me stored Sonar token
+        SONAR_HOST_URL = 'http://172.16.210.130:9000' // SonarQube server ka URL
     }
 
-    environment {
-        SONAR_TOKEN = credentials('Sonar') // Jenkins me saved Sonar token
-        SONAR_HOST_URL = 'http://172.16.210.130/:9000' // SonarQube server URL
+    tools {
+        sonarScanner 'Sonar-scanner'   // 👈 yahan wahi naam likho jo Tools me configure kiya tha
     }
 
     stages {
-
-        // Stage 1: Code Pulling
         stage('Code pulling') {
             steps {
                 git branch: "main", url: 'https://github.com/shivamFullStack111/3-tier-app-CICD'
                 echo 'Code clone successful'
-                sh 'ls'    
+                sh 'ls'
             }
         }
 
-        // Stage 2: SonarQube Scan
         stage('Sonarqube scanning') {
             steps {
-                echo 'Running SonarQube scan...'
-
-                // Jenkins me configured SonarQube server ka environment use kar rahe hain
-                withSonarQubeEnv('Sonar') {
+                withSonarQubeEnv('Sonar') {   // 👈 yahan "Sonar" wahi naam hai jo Jenkins Global SonarQube servers me diya tha
                     sh """
-                    sonar-scanner \
+                    ${tool 'Sonar-scanner'}/bin/sonar-scanner \
                     -Dsonar.projectKey=3-tier-app \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=$SONAR_HOST_URL \
