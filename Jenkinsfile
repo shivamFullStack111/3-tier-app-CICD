@@ -2,12 +2,8 @@ pipeline {
     agent any
 
     environment {
-        SONAR_TOKEN = credentials('Sonar')  // Jenkins me stored Sonar token
-        SONAR_HOST_URL = 'http://172.16.210.130:9000' // SonarQube server ka URL
-    }
-
-    tools {
-        SonarQubeScanner 'sonar-scanner-01'   // 👈 yahan wahi naam likho jo Tools me configure kiya tha
+       SONAR_HOME = tool "sonar-scanner-01"
+        
     }
 
     stages {
@@ -21,14 +17,8 @@ pipeline {
 
         stage('Sonarqube scanning') {
             steps {
-                withSonarQubeEnv('Sonar') {   // 👈 yahan "Sonar" wahi naam hai jo Jenkins Global SonarQube servers me diya tha
-                    sh """
-                    ${tool 'Sonar-scanner'}/bin/sonar-scanner \
-                    -Dsonar.projectKey=3-tier-app \
-                    -Dsonar.sources=. \
-                    -Dsonar.host.url=$SONAR_HOST_URL \
-                    -Dsonar.login=$SONAR_TOKEN
-                    """
+                withSonarQubeEnv("sonar-scanner-01") {   // 👈 yahan "Sonar" wahi naam hai jo Jenkins Global SonarQube servers me diya tha
+                    sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=3-tier-app -Dsonar.projectKey=3-tier-app" 
                 }
             }
         }
