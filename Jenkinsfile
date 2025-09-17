@@ -27,7 +27,10 @@ pipeline {
                 dir('backend') {
                     sh '''
                         wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.0.2/dependency-check-8.0.2-release.zip -O dependency-check.zip
-                        unzip -o dependency-check.zip -d dependency-check
+                        unzip -o dependency-check.zip -d dependency-check-temp
+                        # Flatten folder structure
+                        mv dependency-check-temp/dependency-check/* dependency-check/
+                        rm -rf dependency-check-temp
                         ./dependency-check/bin/dependency-check.sh --project "3-tier-backend" --scan . --out owasp-report
                     '''
                 }
