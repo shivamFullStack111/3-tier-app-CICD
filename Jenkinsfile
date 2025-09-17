@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     environment {
-        SONAR_HOME = tool "sonar-scanner-01"   // Jenkins Tools me diya hua naam
+        SONAR_HOME = tool "sonar-scanner-00"   // 👈 wahi naam jo Tools me diya
     }
 
     stages {
-        stage('Code Checkout') {
+        stage('Code pulling') {
             steps {
                 git branch: "main", url: 'https://github.com/shivamFullStack111/3-tier-app-CICD'
                 echo 'Code clone successful'
@@ -14,15 +14,10 @@ pipeline {
             }
         }
 
-        stage('SonarQube Scan') {
+        stage('Sonarqube scanning') {
             steps {
-                withSonarQubeEnv("Sonar") {   // Jenkins Global SonarQube server ka naam
-                    sh """
-                        $SONAR_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=3-tier-app \
-                        -Dsonar.projectName=3-tier-app \
-                        -Dsonar.sources=.
-                    """
+                withSonarQubeEnv("Sonar") {   // 👈 Global SonarQube server ka naam
+                    sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectKey=3-tier-app -Dsonar.projectName=3-tier-app -Dsonar.sources=."
                 }
             }
         }
@@ -51,4 +46,3 @@ pipeline {
         }
     }
 }
-
