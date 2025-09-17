@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-       SONAR_HOME = tool "sonar-scanner-01"
+        SONAR_SCANNER = tool "sonar-scanner-01"   // Tool wala naam 
     }
 
     stages {
@@ -16,8 +16,13 @@ pipeline {
 
         stage('Sonarqube scanning') {
             steps {
-                withSonarQubeEnv("sonar-scanner-01") {   // 👈 yahan "Sonar" wahi naam hai jo Jenkins Global SonarQube servers me diya tha
-                    sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=3-tier-app -Dsonar.projectKey=3-tier-app" 
+                withSonarQubeEnv("Sonar") {   // 👈 Yahan "Sonar" wahi naam hona chahiye jo SonarQube server config me diya hai
+                    sh '''
+                        $SONAR_SCANNER/bin/sonar-scanner \
+                          -Dsonar.projectKey=3-tier-app \
+                          -Dsonar.projectName=3-tier-app \
+                          -Dsonar.sources=.
+                    '''
                 }
             }
         }
