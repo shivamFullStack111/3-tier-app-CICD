@@ -3,7 +3,6 @@ pipeline {
 
     environment {
        SONAR_HOME = tool "sonar-scanner-01"
-        
     }
 
     stages {
