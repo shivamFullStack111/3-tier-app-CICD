@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONAR_SCANNER = tool "sonar-scanner-01"   // Tool wala naam 
+        SONAR_SCANNER = "sonar-scanner-01"   // Tool wala naam 
     }
 
     stages {
