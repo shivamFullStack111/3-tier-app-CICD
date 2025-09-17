@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        SONAR_SCANNER_HOME = tool "sonar-scanner-01"
-    }
-
     stages {
         stage('Code pulling') {
             steps {
@@ -18,7 +14,7 @@ pipeline {
             steps {
                 withSonarQubeEnv("Sonar") {   // 👈 SonarQube server ka naam
                     sh '''
-                        $SONAR_SCANNER_HOME/bin/sonar-scanner \
+                        /opt/sonar-scanner/bin/sonar-scanner \
                           -Dsonar.projectKey=3-tier-app \
                           -Dsonar.projectName=3-tier-app \
                           -Dsonar.sources=.
