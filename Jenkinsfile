@@ -17,10 +17,7 @@ pipeline {
         stage('Sonarqube scanning') {
             steps {
                 withSonarQubeEnv("Sonar") {   // 👈 Global SonarQube server ka naam
-                    sh "$SONAR_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=3-tier-app \
-                        -Dsonar.projectName=3-tier-app \
-                        -Dsonar.sources=."
+                    sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectKey=3-tier-app -Dsonar.projectName=3-tier-app  -Dsonar.sources=."
                 }
             }
         }
