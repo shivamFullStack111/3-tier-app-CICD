@@ -22,19 +22,24 @@ pipeline {
             }
         }
 
-        stage('OWASP Dependency Check (OWASP scanning)') {
+        stage('OWASP Dependency Check - Backend') {
             steps {
                 dir('backend') {
-                    // DIRECT inline token (example only) - not recommended
                     dependencyCheck additionalArguments: "--scan ./", odcInstallation: 'dc-tool'
                     dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-                }    
+                }
             }
         }
 
+        stage('OWASP Dependency Check - Frontend') {
+            steps {
+                dir('frontend') {
+                    dependencyCheck additionalArguments: "--scan ./", odcInstallation: 'dc-tool'
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                }
+            }
+        }
     }
-
-    
 
     post {
         always {
