@@ -23,23 +23,16 @@ pipeline {
         }
 
        stage('OWASP Dependency Check') {
+stage('OWASP Dependency Check (OWASP scanning)') {
     steps {
         dir('backend') {
-               sh '''
-                wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.0.2/dependency-check-8.0.2-release.zip -O dependency-check.zip
-                unzip -o dependency-check.zip -d dependency-check-temp
-                rm -rf dependency-check
-                mv dependency-check-temp/dependency-check dependency-check
-                rm -rf dependency-check-temp
-
-                ./dependency-check/bin/dependency-check.sh \
-                  --project "3-tier-backend" \
-                  --scan . \
-                  --format XML \
-                  --out dependency-check-report.xml
-            '''
+            // DIRECT inline token (example only) - not recommended
+            dependencyCheck additionalArguments: "--scan ./ --nvdApiKey 553b2524-8b68-44dd-8619-99fbd45c89f1", odcInstallation: 'dc-tool'
+            dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         }
     }
+}
+
 }
 
     }
