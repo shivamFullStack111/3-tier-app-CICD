@@ -35,11 +35,13 @@ pipeline {
                     '''
                 }
             }
+            
             post {
                 always {
                     archiveArtifacts artifacts: 'backend/owasp-report/**', allowEmptyArchive: true
                 }
             }
+            
         }
     }
 
