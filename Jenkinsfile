@@ -25,8 +25,19 @@ pipeline {
        stage('OWASP Dependency Check') {
     steps {
         dir('backend') {
-              dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'dc-tool'
-              dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+               sh '''
+                wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.0.2/dependency-check-8.0.2-release.zip -O dependency-check.zip
+                unzip -o dependency-check.zip -d dependency-check-temp
+                rm -rf dependency-check
+                mv dependency-check-temp/dependency-check dependency-check
+                rm -rf dependency-check-temp
+
+                ./dependency-check/bin/dependency-check.sh \
+                  --project "3-tier-backend" \
+                  --scan . \
+                  --format XML \
+                  --out dependency-check-report.xml
+            '''
         }
     }
 }
