@@ -26,7 +26,7 @@ pipeline {
             steps {
                 dir('backend') {
                     // DIRECT inline token (example only) - not recommended
-                    dependencyCheck additionalArguments: "--scan ./ --nvdApiKey 553b2524-8b68-44dd-8619-99fbd45c89f1", odcInstallation: 'dddcheck'
+                    dependencyCheck additionalArguments: "--scan ./ --nvdApiKey 553b2524-8b68-44dd-8619-99fbd45c89f1", odcInstallation: 'dc-tool'
                     dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
                 }    
             }
