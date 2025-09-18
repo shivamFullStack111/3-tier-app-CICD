@@ -25,24 +25,8 @@ pipeline {
        stage('OWASP Dependency Check') {
     steps {
         dir('backend') {
-            sh '''
-                wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.0.2/dependency-check-8.0.2-release.zip -O dependency-check.zip
-                unzip -o dependency-check.zip -d dependency-check-temp
-
-                # Agar pehle se dependency-check folder hai to hatao
-                rm -rf dependency-check
-
-                mv dependency-check-temp/dependency-check dependency-check
-                rm -rf dependency-check-temp
-
-                ./dependency-check/bin/dependency-check.sh --project "3-tier-backend" --scan . --out owasp-report
-            '''
-        }
-    }
-
-    post {
-        always {
-            archiveArtifacts artifacts: 'backend/owasp-report/**', allowEmptyArchive: true
+              dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'DC-Tool'
+              dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         }
     }
 }
